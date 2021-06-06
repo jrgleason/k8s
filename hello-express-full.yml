@@ -1,0 +1,186 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-02-13T01:27:41Z"
+  generateName: hello-express-deployment-6fddd6d674-
+  labels:
+    app: hello-express
+    pod-template-hash: 6fddd6d674
+    tier: app
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:generateName: {}
+        f:labels:
+          .: {}
+          f:app: {}
+          f:pod-template-hash: {}
+          f:tier: {}
+        f:ownerReferences:
+          .: {}
+          k:{"uid":"14d7633a-f0d3-4862-a97c-939613a73f7f"}:
+            .: {}
+            f:apiVersion: {}
+            f:blockOwnerDeletion: {}
+            f:controller: {}
+            f:kind: {}
+            f:name: {}
+            f:uid: {}
+      f:spec:
+        f:containers:
+          k:{"name":"server"}:
+            .: {}
+            f:image: {}
+            f:imagePullPolicy: {}
+            f:name: {}
+            f:ports:
+              .: {}
+              k:{"containerPort":3000,"protocol":"TCP"}:
+                .: {}
+                f:containerPort: {}
+                f:protocol: {}
+            f:resources: {}
+            f:terminationMessagePath: {}
+            f:terminationMessagePolicy: {}
+        f:dnsPolicy: {}
+        f:enableServiceLinks: {}
+        f:restartPolicy: {}
+        f:schedulerName: {}
+        f:securityContext: {}
+        f:terminationGracePeriodSeconds: {}
+    manager: kube-controller-manager
+    operation: Update
+    time: "2021-02-13T01:27:41Z"
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:conditions:
+          k:{"type":"ContainersReady"}:
+            .: {}
+            f:lastProbeTime: {}
+            f:lastTransitionTime: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Initialized"}:
+            .: {}
+            f:lastProbeTime: {}
+            f:lastTransitionTime: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Ready"}:
+            .: {}
+            f:lastProbeTime: {}
+            f:lastTransitionTime: {}
+            f:status: {}
+            f:type: {}
+        f:containerStatuses: {}
+        f:hostIP: {}
+        f:phase: {}
+        f:podIP: {}
+        f:podIPs:
+          .: {}
+          k:{"ip":"172.17.0.3"}:
+            .: {}
+            f:ip: {}
+        f:startTime: {}
+    manager: kubelet
+    operation: Update
+    time: "2021-02-13T15:56:59Z"
+  name: hello-express-deployment-6fddd6d674-td4w6
+  namespace: test-namespace
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: hello-express-deployment-6fddd6d674
+    uid: 14d7633a-f0d3-4862-a97c-939613a73f7f
+  resourceVersion: "244989"
+  selfLink: /api/v1/namespaces/test-namespace/pods/hello-express-deployment-6fddd6d674-td4w6
+  uid: aabe9d8d-ae49-4090-b0a5-940540af0e60
+spec:
+  containers:
+  - image: partyk1d24/hello-express:latest
+    imagePullPolicy: IfNotPresent
+    name: server
+    ports:
+    - containerPort: 3000
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-94xj8
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: default-token-94xj8
+    secret:
+      defaultMode: 420
+      secretName: default-token-94xj8
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2021-02-13T01:27:41Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2021-02-13T15:56:51Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2021-02-13T15:56:51Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2021-02-13T01:27:41Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://6553f55fb84ea1e90f7dae9dc5a2a57184d1a6efc159a2e952a6b6196ebe28c3
+    image: partyk1d24/hello-express:latest
+    imageID: docker://sha256:f8cebec7d0097562ca6f567e2911567940d741d048f6243f8a1aeddd26142501
+    lastState:
+      terminated:
+        containerID: docker://79a985bd54c155e6c2fef3eff1feacb321ae354c5eb7ed3b97a1f850ca1750bd
+        exitCode: 137
+        finishedAt: "2021-02-13T15:54:25Z"
+        reason: Error
+        startedAt: "2021-02-13T02:51:55Z"
+    name: server
+    ready: true
+    restartCount: 2
+    started: true
+    state:
+      running:
+        startedAt: "2021-02-13T15:56:50Z"
+  hostIP: 192.168.99.101
+  phase: Running
+  podIP: 172.17.0.3
+  podIPs:
+  - ip: 172.17.0.3
+  qosClass: BestEffort
+  startTime: "2021-02-13T01:27:41Z"

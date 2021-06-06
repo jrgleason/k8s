@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: main-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/Users/jackiegleason/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: main-volume-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: express-app
+spec:
+  volumes:
+    - name: express-app-storage
+      persistentVolumeClaim:
+        claimName: main-volume-claim
+  containers:
+    - name: express-app-container
+      image: partyk1d24/hello-express:latest
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: "/var/external"
+          name: express-app-storage
+      ports:
+        - containerPort: 3000
+          protocol: TCP
+          name: express-endpnt
+

@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job
+spec:
+  template:
+    spec:
+      containers:
+        - name: job
+          image: partyk1d24/test-job:latest
+          imagePullPolicy: IfNotPresent
+          command: ["node",  "/usr/src/app/test.js"]
+      restartPolicy: Never
+  backoffLimit: 4

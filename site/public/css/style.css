@@ -1,0 +1,43 @@
+body, html {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display:none;
+}
+
+a {
+  color: #00B7FF; }
+
+.title-area {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.title-area h1 {
+  padding-right: 20px; }
+
+.card-content {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 10px; }
+
+.card-content > * {
+  margin: 10px; }
+
+.card-content > mwc-textarea, .card-content > mwc-textfield {
+  min-width: 300px;
+  --mdc-shape-small: 28px; }
+
+.card-content > mwc-textarea {
+  flex: 1;
+  min-width: 100%; }
+
+.main-area {
+  width: 100%; }
+
+/*# sourceMappingURL=style.css.map */

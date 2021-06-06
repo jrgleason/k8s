@@ -1,0 +1,102 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ha-config-volume
+  labels:
+    directory: config
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local
+  hostPath:
+    path: "/home/pi/ha"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ha-config-claim
+spec:
+  storageClassName: local
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      directory: config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ha
+  name: ha-service
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8123 #80
+      targetPort: 8123
+  selector:
+    tier: app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ha-deployment
+  labels:
+    app: ha
+    tier: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: app
+  template:
+    metadata:
+      labels:
+        app: ha
+        tier: app
+    spec:
+      containers:
+        - name: server
+          image: homeassistant/raspberrypi4-homeassistant:stable
+          ports:
+            - containerPort: 8123
+          volumeMounts:
+            - name: ha-config-volume
+              mountPath: "/config"
+      volumes:
+        - name: ha-config-volume
+          persistentVolumeClaim:
+            claimName: ha-config-claim
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ha-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ha-service
+                port:
+                  number: 8123 #80

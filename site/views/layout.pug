@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title= title
+    style
+        | body{ visible: false }
+    meta(http-equiv="content-type", content="text/html; charset=utf-8")
+    link(rel='stylesheet', href='/css/style.css')
+    link(
+      href="https://fonts.googleapis.com/css?family=Material+Icons&display=block",
+      rel="stylesheet"
+    )
+    link(
+      href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.css",
+      rel="stylesheet"
+    )
+    link(
+      rel="stylesheet",
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    )
+    meta(
+      name="viewport",
+      content="width=device-width,height=device-height,initial-scale=1,user-scalable=no,minimal-ui"
+    )
+  body
+    .header
+      block header
+    .content
+      block content
+    script(src="//unpkg.com/@jrg/ui/target/jrg-ui.esm.mjs", type="module")
+    script(type="module")
+      | document.onreadystatechange = function () {
+      |     if (document.readyState === 'complete')
+      |         document.getElementsByTagName("body")[0].style.display = "initial";
+      | };
+

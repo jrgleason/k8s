@@ -1,0 +1,11 @@
+{
+  "name": "@jrg/postgres-k8s",
+  "version": "0.0.1",
+  "description": "Simple K8s kubernetes node project",
+  "main": "server.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
