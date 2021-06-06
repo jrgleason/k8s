@@ -47,7 +47,7 @@ const checkLogDirectory = function(){
 }
 
 class Runner{
-  app = require('../app');
+  app = require('../app.mjs');
   constructor() {
     this.port = this.normalizePort(portNumber);
     this.app.set('port', this.port);
