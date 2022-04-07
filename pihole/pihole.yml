@@ -123,6 +123,7 @@ spec:
       containers:
         - name: pihole
           image: pihole/pihole:latest
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 80
               protocol: TCP
@@ -163,23 +164,5 @@ spec:
             backend:
               service:
                 name: pihole
-                port:
-                  number: 53
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ha-ingress
-  annotations:
-    kubernetes.io/ingress.class: "traefik"
-spec:
-  rules:
-    - http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: pihole-udp
                 port:
                   number: 53
