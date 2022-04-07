@@ -44,10 +44,9 @@ metadata:
     app: ha
   name: ha-service
 spec:
-  type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 8123 #80
+      port: 80
       targetPort: 8123
   selector:
     tier: app
@@ -72,7 +71,8 @@ spec:
     spec:
       containers:
         - name: server
-          image: homeassistant/raspberrypi4-homeassistant:stable
+          image: homeassistant/raspberrypi4-homeassistant:latest
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 8123
           volumeMounts:
@@ -99,4 +99,4 @@ spec:
               service:
                 name: ha-service
                 port:
-                  number: 8123 #80
+                  number: 80
