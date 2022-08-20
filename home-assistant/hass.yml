@@ -47,7 +47,7 @@ spec:
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 8123 #80
+      port: 80
       targetPort: 8123
   selector:
     tier: app
@@ -83,13 +83,37 @@ spec:
           persistentVolumeClaim:
             claimName: ha-config-claim
 ---
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: secondave-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: secondave-cert
+spec:
+  secretName: supersecret
+  dnsNames:
+    - "*.secondave.net"
+  issuerRef:
+    name: secondave-issuer
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ha-ingress
   annotations:
     kubernetes.io/ingress.class: "traefik"
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
+  defaultBackend:
+    service:
+      name: ha-service
+      port:
+        number: 80
   rules:
     - http:
         paths:
@@ -99,4 +123,6 @@ spec:
               service:
                 name: ha-service
                 port:
-                  number: 8123 #80
+                  number: 80
+  tls:
+    - secretName: supersecret

@@ -123,6 +123,7 @@ spec:
       containers:
         - name: pihole
           image: pihole/pihole:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 80
               protocol: TCP
@@ -133,8 +134,6 @@ spec:
           env:
             - name: TZ
               value: "America/New_York"
-            - name: WEBPASSWORD
-              value: "..."
           volumeMounts:
             - name: pihole-local-etc-volume
               mountPath: "/etc/pihole"
