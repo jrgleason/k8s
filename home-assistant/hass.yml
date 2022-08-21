@@ -47,8 +47,7 @@ spec:
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8123
+      port: 8123
   selector:
     tier: app
 ---
@@ -113,7 +112,7 @@ spec:
     service:
       name: ha-service
       port:
-        number: 80
+        number: 8123
   rules:
     - http:
         paths:
@@ -123,6 +122,6 @@ spec:
               service:
                 name: ha-service
                 port:
-                  number: 80
+                  number: 8123
   tls:
     - secretName: supersecret
